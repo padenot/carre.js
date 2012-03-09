@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>
+    Test for carre.js
+  </title>
+  <style>
+    canvas {
+      border: 1px red dashed;
+      margin: 0 auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<canvas id=CarreCanvas>
+  Canvas not supported.
+</canvas>
+<script id="config" type="text/javascript">
+  var GameConfig = {
+    width : 300,
+    height : 200,
+    map : "assets/maps/map.json",
+    layoutDebug : false 
+  };
+</script>
+<script type="text/javascript" src="carre.js"> </script>
+<script type="text/javascript">
+(function(d, w) {
+  Carre.init();
+ })(document, window);
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{ "height":10,
+ "layers":[
+        {
+         "data":[0, 14, 15, 0, 0, 10, 11, 0, 0, 0, 0, 0, 0, 0, 0, 34, 35, 0, 0, 30, 31, 0, 0, 0, 0, 0, 17, 0, 0, 34, 35, 23, 4, 5, 5, 62, 5, 22, 0, 16, 37, 0, 0, 54, 55, 0, 24, 7, 7, 41, 25, 0, 0, 36, 37, 0, 0, 0, 0, 0, 44, 8, 8, 8, 45, 0, 0, 36, 57, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 56, 0, 0, 0, 0, 0, 0, 0, 34, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 54, 0, 0, 0, 0, 0, 92, 0, 0, 23, 2, 4, 5, 4, 5, 4, 5, 43, 62, 43, 112, 42, 22, 0, 44, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 45, 0],
+         "height":10,
+         "name":"Littlemap_1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":14,
+         "x":0,
+         "y":0
+        }],
+ "orientation":"orthogonal",
+ "properties":
+    {
+
+    },
+ "tileheight":32,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "image":"assets/tilesets/tileset.png",
+         "imageheight":241,
+         "imagewidth":640,
+         "margin":0,
+         "name":"tileset",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":32,
+         "tilewidth":32
+        }],
+ "tilewidth":32,
+ "version":1,
+ "width":14
+}
