@@ -68,13 +68,21 @@ var Carre = {
     };
 
     this.Inputs.register.bind(this.Inputs)(37, "pressed", function left() {
+      var p = Carre.GameLogic.objectByFamily.player[0];
+      p.look = "left";
+      p.displayComponent.animation.currentAnimation = p.displayComponent.animation.walking;
       if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.right2.state !== true) {
-        Carre.GameLogic.objectByFamily.player[0].x -= 5;
+        var vx = Carre.GameLogic.objectByFamily.player[0].vx;
+        Carre.GameLogic.objectByFamily.player[0].vx = Math.min(vx, -5) ;
       }
     });
     this.Inputs.register.bind(this.Inputs)(39, "pressed", function right() {
+      var p = Carre.GameLogic.objectByFamily.player[0];
+      p.look = "right";
+      p.displayComponent.animation.currentAnimation = p.displayComponent.animation.walking;
       if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.left2.state !== true) {
-        Carre.GameLogic.objectByFamily.player[0].x += 5;
+        var vx = Carre.GameLogic.objectByFamily.player[0].vx;
+        Carre.GameLogic.objectByFamily.player[0].vx = Math.max(vx, 5) ;
       }
     });
     this.Inputs.register.bind(this.Inputs)(38, "pressed", function up() {
@@ -84,6 +92,7 @@ var Carre = {
     this.Inputs.register.bind(this.Inputs)(32, "down", function jump() {
       if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.feet2.state === true) {
         Carre.GameLogic.objectByFamily.player[0].vy -= 15;
+        Carre.Sound.trigger("jump");
       }
     });
   },
@@ -100,7 +109,7 @@ var Carre = {
               };
     })();
 
-    //Carre.Sound.trigger("music");
+    Carre.Sound.trigger("music");
 
     (function animloop(){
       requestAnimFrame(animloop);
