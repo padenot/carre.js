@@ -66,21 +66,24 @@ var Carre = {
     document.onkeyup = function(e) {
       _this.Inputs.dispatch(e.keyCode, "up");
     };
-    this.Inputs.register.bind(this.Inputs)(37, "pressed", function right() {
-      Carre.GameLogic.objectByFamily.camera[0].x -= 5;
+
+    this.Inputs.register.bind(this.Inputs)(37, "pressed", function left() {
+      if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.right2.state !== true) {
+        Carre.GameLogic.objectByFamily.player[0].x -= 5;
+      }
     });
-    this.Inputs.register.bind(this.Inputs)(39, "pressed", function left() {
-      Carre.GameLogic.objectByFamily.camera[0].x += 5;
+    this.Inputs.register.bind(this.Inputs)(39, "pressed", function right() {
+      if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.left2.state !== true) {
+        Carre.GameLogic.objectByFamily.player[0].x += 5;
+      }
     });
     this.Inputs.register.bind(this.Inputs)(38, "pressed", function up() {
-      Carre.GameLogic.objectByFamily.camera[0].y -= 5;
     });
     this.Inputs.register.bind(this.Inputs)(40, "pressed", function down() {
-      Carre.GameLogic.objectByFamily.camera[0].y += 5;
     });
-    this.Inputs.register.bind(this.Inputs)(32, "pressed", function down() {
+    this.Inputs.register.bind(this.Inputs)(32, "down", function jump() {
       if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.feet2.state === true) {
-        Carre.GameLogic.objectByFamily.player[0].vy -= 8;
+        Carre.GameLogic.objectByFamily.player[0].vy -= 15;
       }
     });
   },
@@ -102,10 +105,10 @@ var Carre = {
     (function animloop(){
       requestAnimFrame(animloop);
       Carre.c.clearRect(0, 0, Carre.settings.width, Carre.settings.height);
-      Carre.Inputs.process.bind(Carre.Inputs)();
       var camera = Carre.GameLogic.objectByFamily.camera[0];
       Carre.Tile.renderMap(camera.x, camera.y);
       Carre.GameLogic.render.bind(Carre.GameLogic)(Carre.c);
+      Carre.Inputs.process.bind(Carre.Inputs)();
     })();
     // place the rAF *before* the render() to assure as close to 
     // 60fps with the setTimeout fallback.
@@ -134,4 +137,3 @@ var Carre = {
     sounds : false
   }
 };
-
