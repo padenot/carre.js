@@ -95,6 +95,10 @@ var Carre = {
         Carre.Sound.trigger("jump");
       }
     });
+    this.Inputs.register.bind(this.Inputs)(75, "down", function suicide() {
+      Carre.GameLogic.objectByFamily.player[0].destroy();
+      Carre.GameLogic.get("player");
+    });
   },
   gameLoop : function() {
     // shim layer with setTimeout fallback
@@ -113,7 +117,9 @@ var Carre = {
 
     (function animloop(){
       requestAnimFrame(animloop);
-      Carre.c.clearRect(0, 0, Carre.settings.width, Carre.settings.height);
+      Carre.c.fillStyle = "rgba(50,50,255,1)";
+      Carre.c.fillRect(0,0,Carre.settings.width, Carre.settings.height);
+      //Carre.c.clearRect(0, 0, Carre.settings.width, Carre.settings.height);
       var camera = Carre.GameLogic.objectByFamily.camera[0];
       Carre.Tile.renderMap(camera.x, camera.y);
       Carre.GameLogic.render.bind(Carre.GameLogic)(Carre.c);
