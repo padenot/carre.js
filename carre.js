@@ -78,6 +78,11 @@ var Carre = {
     this.Inputs.register.bind(this.Inputs)(40, "pressed", function down() {
       Carre.GameLogic.objectByFamily.camera[0].y += 5;
     });
+    this.Inputs.register.bind(this.Inputs)(32, "pressed", function down() {
+      if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.feet2.state === true) {
+        Carre.GameLogic.objectByFamily.player[0].vy -= 8;
+      }
+    });
   },
   gameLoop : function() {
     // shim layer with setTimeout fallback
@@ -91,8 +96,8 @@ var Carre = {
                 window.setTimeout(callback, 1000 / 60);
               };
     })();
-    
-    Carre.Sound.trigger("music");
+
+    //Carre.Sound.trigger("music");
 
     (function animloop(){
       requestAnimFrame(animloop);
