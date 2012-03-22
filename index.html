@@ -10,6 +10,61 @@
       border: 1px red dashed;
       margin: 0 auto;
       display: block;
+      z-index : 1;
+    }
+    #menu {
+      position: absolute;
+      margin: 0 auto;
+      z-index : 2;
+      display: block;
+      font-family: sans-serif;
+    }
+    .controls {
+      visibility: hidden;
+      color: black;
+      z-index: 3;
+    }
+    .key {
+      border: 1px solid black;
+      padding: 0px 4px;
+      border-radius: 4px;
+      box-shadow: 0px 2px 0px black;
+    }
+    .controls {
+      border: 2px solid black;
+      background: rgba(128,128,128,0.5);
+      box-shadow: 4px 4px 2px black;
+      text-align:left;
+      line-height: 2em;
+      font-size: 3em;
+      margin: 4em;
+      border-radius: 1em;
+      list-style-type: none;
+    }
+    .pauseLabel {
+      font-family: sans-serif;
+      font-size: 6em;
+      color: red;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 4;
+      -moz-animation-duration: 1s;
+      -moz-animation-name: glow;
+      -moz-animation-iteration-count: infinite;
+    }
+
+  @-moz-keyframes glow{
+    0% {
+      text-shadow: 0em 0em 0em red;
+    }
+
+    50% {
+      text-shadow: 0em 0em 0.5em red;
+    }
+
+    100% {
+      text-shadow: 0em 0em 0em red;
     }
   </style>
 </head>
@@ -17,6 +72,15 @@
 <canvas id=CarreCanvas>
   Canvas not supported.
 </canvas>
+<div id=menu>
+  <button id='play' disabled onclick='Carre.play.bind(Carre)()'>Play</button>
+  <button onclick='Carre.Menu.showHideControls()'>Controls</button>
+  <ul class=controls>
+    <li>Left : <span class=key>←</span></li>
+    <li>Right : <span class=key>→</span></li>
+    <li>Jump : <span class=key>Space</span></li>
+  </ul>"
+</div>
 <script id="config" type="text/javascript">
   var GameConfig = {
     width : 800,
@@ -31,7 +95,8 @@
       "pickup",
       "death",
       "jump"
-    ]
+    ],
+    autoplay: true
   };
 </script>
 <script type="text/javascript" src="carre.js"> </script>

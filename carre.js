@@ -20,22 +20,39 @@ var Util = {
 
 var Carre = {
   init : function() {
+    // shim layer with setTimeout fallback
+    window.requestAnimFrame = (function(){
+      return  window.requestAnimationFrame       ||
+              window.webkitRequestAnimationFrame ||
+              window.mozRequestAnimationFrame    ||
+              window.oRequestAnimationFrame      ||
+              window.msRequestAnimationFrame     ||
+              function( callback ){
+                window.setTimeout(callback, 1000 / 60);
+              };
+    })();
+
     var _this = this;
     this.startLoading();
-    Util.require("lib/util.js", function() {
-      Util.require("lib/tile.js", function() {
-        Util.require("lib/inputs.js", function() {
-          Util.require("lib/game_object.js", function() {
-            Util.require("lib/display_components.js", function() {
-              Util.require("lib/game_logic.js", function() {
-                Util.require("lib/sound.js", function() {
-                _this.getSettingsFromPage();
-                _this.initCanvas();
-                _this.initInputs();
-                Carre.Tile.load.bind(Carre.Tile)(Carre.settings.map, Carre.settings.collision);
-                Carre.Sound.init.bind(Carre.Sound)();
 
-                _this.GameLogic.init.bind(_this.GameLogic)();
+
+    Util.require("lib/menu.js", function() {
+      _this.getSettingsFromPage();
+      _this.initCanvas();
+      _this.Menu.init();
+      _this.Menu.show();
+      Util.require("lib/util.js", function() {
+        Util.require("lib/tile.js", function() {
+          Util.require("lib/inputs.js", function() {
+            _this.initInputs();
+            Util.require("lib/game_object.js", function() {
+              Util.require("lib/display_components.js", function() {
+                Util.require("lib/game_logic.js", function() {
+                  Util.require("lib/sound.js", function() {
+                    Carre.Tile.load.bind(Carre.Tile)(Carre.settings.map, Carre.settings.collision);
+                    Carre.Sound.init.bind(Carre.Sound)();
+                    Carre.GameLogic.init.bind(Carre.GameLogic)();
+                  });
                 });
               });
             });
@@ -44,7 +61,16 @@ var Carre = {
       });
     });
   },
+  play : function() {
+    document.querySelector("#menu").style.disabled = true;
+    if (Carre.isPlaying) {
+      // Wtf ?
+      return;
+    }
+    this.gameLoop();
+  },
   startLoading : function() {
+    // XXX progress bar
     document.getElementsByTagName("canvas");
   },
   getSettingsFromPage : function() {
@@ -67,7 +93,14 @@ var Carre = {
       _this.Inputs.dispatch(e.keyCode, "up");
     };
 
-    this.Inputs.register.bind(this.Inputs)(37, "pressed", function left() {
+    // Pause on p
+    this.Inputs.register.bind(this.Inputs)(80, "down", "async", function pause() {
+      console.log("pressed");
+      Carre.paused = !Carre.paused;
+      Carre.Menu.showHidePauseLabel();
+    });
+
+    this.Inputs.register.bind(this.Inputs)(37, "pressed", "sync", function left() {
       var p = Carre.GameLogic.objectByFamily.player[0];
       p.look = "left";
       p.displayComponent.animation.currentAnimation = p.displayComponent.animation.walking;
@@ -76,7 +109,7 @@ var Carre = {
         Carre.GameLogic.objectByFamily.player[0].vx = Math.min(vx, -5) ;
       }
     });
-    this.Inputs.register.bind(this.Inputs)(39, "pressed", function right() {
+    this.Inputs.register.bind(this.Inputs)(39, "pressed", "sync", function right() {
       var p = Carre.GameLogic.objectByFamily.player[0];
       p.look = "right";
       p.displayComponent.animation.currentAnimation = p.displayComponent.animation.walking;
@@ -85,48 +118,81 @@ var Carre = {
         Carre.GameLogic.objectByFamily.player[0].vx = Math.max(vx, 5) ;
       }
     });
-    this.Inputs.register.bind(this.Inputs)(38, "pressed", function up() {
+    this.Inputs.register.bind(this.Inputs)(38, "pressed", "sync", function up() {
     });
-    this.Inputs.register.bind(this.Inputs)(40, "pressed", function down() {
+    this.Inputs.register.bind(this.Inputs)(40, "pressed", "sync", function down() {
     });
-    this.Inputs.register.bind(this.Inputs)(32, "down", function jump() {
+    this.Inputs.register.bind(this.Inputs)(32, "down", "sync", function jump() {
       if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.feet2.state === true) {
         Carre.GameLogic.objectByFamily.player[0].vy -= 15;
         Carre.Sound.trigger("jump");
       }
     });
-    this.Inputs.register.bind(this.Inputs)(75, "down", function suicide() {
+    this.Inputs.register.bind(this.Inputs)(75, "down", "sync", function suicide() {
       Carre.GameLogic.objectByFamily.player[0].destroy();
       Carre.GameLogic.get("player");
     });
+    //this.Inputs.register.bind(this.Inputs)(82, "down", function startRecord() {
+      //Carre.Inputs.startRecord.bind(Carre.Inputs)();
+    //});
+    //this.Inputs.register.bind(this.Inputs)(83, "down", function startRecord() {
+      //Carre.Inputs.stopRecord.bind(Carre.Inputs)();
+    //});
+    //this.Inputs.register.bind(this.Inputs)(80, "down", function replayLast() {
+      //Carre.Inputs.replayLast.bind(Carre.Inputs)();
+    //});
   },
-  gameLoop : function() {
-    // shim layer with setTimeout fallback
-    window.requestAnimFrame = (function(){
-      return  window.requestAnimationFrame       ||
-              window.webkitRequestAnimationFrame ||
-              window.mozRequestAnimationFrame    ||
-              window.oRequestAnimationFrame      ||
-              window.msRequestAnimationFrame     ||
-              function( callback ){
-                window.setTimeout(callback, 1000 / 60);
-              };
-    })();
-
+  replayLoop : function(r) {
     Carre.Sound.trigger("music");
 
+    var replay = r,
+        startTime = Date.now(),
+        i = 0;
+    (function replayloop(){
+      if (replay[i].timestamp < Date.now() - startTime) {
+        Carre.Inputs.simulateKeypress.bind(Carre.Inputs)(replay[i].timestamp);
+        i++;
+      }
+      if (i !== replay.length) {
+        requestAnimFrame(replayloop);
+      } else {
+        setTimeout(function() {
+          Carre.Inputs.simulateKeypress.bind(Carre.Inputs)(75);
+        }, 1000);
+      }
+      Carre.c.clearRect(0, 0, Carre.settings.width, Carre.settings.height);
+      var camera = Carre.GameLogic.objectByFamily.camera[0];
+      Carre.Tile.renderMap(camera.x, camera.y);
+      Carre.GameLogic.render.bind(Carre.GameLogic)(Carre.c);
+    })();
+  },
+  gameLoop : function() {
+    Carre.Menu.hide();
+    Carre.Sound.trigger("music");
+    Carre.isPlaying = true;
+
     (function animloop(){
-      requestAnimFrame(animloop);
-      Carre.c.fillStyle = "rgba(50,50,255,1)";
-      Carre.c.fillRect(0,0,Carre.settings.width, Carre.settings.height);
-      //Carre.c.clearRect(0, 0, Carre.settings.width, Carre.settings.height);
+      if (!Carre.stopped && !Carre.paused) {
+        requestAnimFrame(animloop);
+      } else {
+        Carre.wasPaused = true;
+        setTimeout(animloop, 100);
+        return;
+      }
+      //Carre.c.fillStyle = "rgba(50,50,255,1)";
+      //Carre.c.fillRect(0,0,Carre.settings.width, Carre.settings.height);
+      Carre.c.clearRect(0, 0, Carre.settings.width, Carre.settings.height);
       var camera = Carre.GameLogic.objectByFamily.camera[0];
       Carre.Tile.renderMap(camera.x, camera.y);
       Carre.GameLogic.render.bind(Carre.GameLogic)(Carre.c);
       Carre.Inputs.process.bind(Carre.Inputs)();
     })();
-    // place the rAF *before* the render() to assure as close to 
-    // 60fps with the setTimeout fallback.
+  },
+  stopGameLoop : function() {
+    Carre.stopped = true;
+  },
+  pauseGameLoop : function() {
+    Carre.paused = true;
   },
   notifyLoaded : function(module) {
     this.loadingState[module] = true;
@@ -135,7 +201,11 @@ var Carre = {
         return;
       }
     }
-    this.gameLoop();
+    Carre.Menu.notifyLoadingFinished();
+
+    if (Carre.settings.autoplay) {
+      Carre.play();
+    }
   },
   settings : {
     width : 400,
