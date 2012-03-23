@@ -1,0 +1,3 @@
+[submodule "lib/knob.js"]
+	path = lib/knob.js
+	url = git@github.com:padenot/knob.js.git
