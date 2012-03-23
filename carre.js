@@ -110,7 +110,7 @@ var Carre = {
     var _this = this;
     document.onkeydown = function(e) {
       _this.Inputs.dispatch(e.keyCode, "down");
-      if (_this.Inputs.indexOf(e.keyCode) !== -1)
+      if (_this.Inputs.registered.indexOf(e.keyCode) !== -1)
         return false;
     };
     document.onkeyup = function(e) {
@@ -152,7 +152,7 @@ var Carre = {
         Carre.Sound.trigger("jump");
       }
     });
-    this.Inputs.register.bind(this.Inputs)(75, "down", "sync", function suicide() {
+    this.Inputs.register.bind(this.Inputs)(68, "down", "sync", function suicide() {
       Carre.GameLogic.objectByFamily.player[0].destroy();
       Carre.GameLogic.get("player");
     });
