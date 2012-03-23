@@ -10,12 +10,14 @@
     body {
       height: 100%;
       width: 100%;
+      background: url(assets/bg.png);
     }
     canvas {
-      border: 1px red dashed;
+      border: 1px solid black;
       margin: 0 auto;
       display: block;
       z-index : 1;
+      box-shadow: 4px 4px 4px gray;
     }
     #menu {
       position: absolute;
@@ -59,7 +61,7 @@
       -moz-animation-iteration-count: infinite;
     }
 
-  @-moz-keyframes glow{
+  @-moz-keyframes glow {
     0% {
       text-shadow: 0em 0em 0em red;
     }
@@ -73,14 +75,17 @@
     }
   }
 
-  .slider{
-    float: right;
+  .knobgroup {
+    float:right;
   }
+
   </style>
 </head>
 <body>
-<div class="slider" id=gravity> </div>
-<div class="slider" id=friction> </div>
+<div class=knobgroup>
+  <div class="slider" id=gravity> </div>
+  <div class="slider" id=friction> </div>
+</div>
 <canvas id=CarreCanvas>
   Canvas not supported.
 </canvas>
