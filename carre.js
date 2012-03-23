@@ -48,10 +48,32 @@ var Carre = {
             Util.require("lib/game_object.js", function() {
               Util.require("lib/display_components.js", function() {
                 Util.require("lib/game_logic.js", function() {
-                  Util.require("lib/sound.js", function() {
-                    Carre.Tile.load.bind(Carre.Tile)(Carre.settings.map, Carre.settings.collision);
-                    Carre.Sound.init.bind(Carre.Sound)();
-                    Carre.GameLogic.init.bind(Carre.GameLogic)();
+                  Util.require("lib/knob.js/knob.js", function() {
+                    Util.require("lib/sound.js", function() {
+                      Carre.Tile.load.bind(Carre.Tile)(Carre.settings.map, Carre.settings.collision);
+                      Carre.Sound.init.bind(Carre.Sound)();
+                      Carre.GameLogic.init.bind(Carre.GameLogic)();
+                      var c = {
+                        min: 0,
+                        max: 2,
+                        increment: 0.05,
+                        width: 50,
+                        height: 50,
+                        progression: "linear",
+                        type: "circular"
+                      };
+                      var k = new Knob(document.getElementById('gravity'), c);
+                      k.onValueChange(function(v) {
+                        console.log(v);
+                        Carre.GameLogic.world.gravity = v;
+                      });
+
+                      var j = new Knob(document.getElementById('friction'), c);
+                      j.onValueChange(function(v) {
+                        console.log(v);
+                        Carre.GameLogic.world.friction = v;
+                      });
+                    });
                   });
                 });
               });
@@ -88,6 +110,7 @@ var Carre = {
     var _this = this;
     document.onkeydown = function(e) {
       _this.Inputs.dispatch(e.keyCode, "down");
+      return false;
     };
     document.onkeyup = function(e) {
       _this.Inputs.dispatch(e.keyCode, "up");
@@ -219,6 +242,7 @@ var Carre = {
     tileset : false,
     player : false,
     collision : false,
-    sounds : false
+    sounds : false,
+    backdrop : false
   }
 };

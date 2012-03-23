@@ -5,10 +5,15 @@
   <title>
     Test for carre.js
   </title>
+  <link rel="stylesheet" href="lib/knob.js/knob.css" type="text/css" />
   <style>
+    body {
+      height: 100%;
+      width: 100%;
+    }
     canvas {
       border: 1px red dashed;
-      margin: 0 auto;
+      margin: 0 0;
       display: block;
       z-index : 1;
     }
@@ -66,9 +71,16 @@
     100% {
       text-shadow: 0em 0em 0em red;
     }
+  }
+
+  .slider{
+    float: right;
+  }
   </style>
 </head>
 <body>
+<div class="slider" id=gravity> </div>
+<div class="slider" id=friction> </div>
 <canvas id=CarreCanvas>
   Canvas not supported.
 </canvas>
@@ -81,6 +93,8 @@
     <li>Jump : <span class=key>Space</span></li>
   </ul>"
 </div>
+<script type="text/javascript">
+</script>
 <script id="config" type="text/javascript">
   var GameConfig = {
     width : 800,

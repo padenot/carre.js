@@ -31,7 +31,8 @@
             },
          "spacing":0,
          "tileheight":32,
-         "tilewidth":32
+         "tilewidth":32,
+         "backdrop" : "assets/backdrops/backdrop.jpg"
         }, 
         {
          "firstgid":141,
