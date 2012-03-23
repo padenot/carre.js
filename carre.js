@@ -110,7 +110,8 @@ var Carre = {
     var _this = this;
     document.onkeydown = function(e) {
       _this.Inputs.dispatch(e.keyCode, "down");
-      return false;
+      if (_this.Inputs.indexOf(e.keyCode) !== -1)
+        return false;
     };
     document.onkeyup = function(e) {
       _this.Inputs.dispatch(e.keyCode, "up");
