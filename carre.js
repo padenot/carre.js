@@ -176,7 +176,7 @@ var Carre = {
       var p = Carre.GameLogic.objectByFamily.player[0];
       p.look = "left";
       p.displayComponent.animation.currentAnimation = p.displayComponent.animation.walking;
-      if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.right2.state < 0) {
+      if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.left2.state < 0) {
         var vx = Carre.GameLogic.objectByFamily.player[0].vx;
         Carre.GameLogic.objectByFamily.player[0].vx = Math.min(vx, -5) ;
       }
@@ -185,7 +185,7 @@ var Carre = {
       var p = Carre.GameLogic.objectByFamily.player[0];
       p.look = "right";
       p.displayComponent.animation.currentAnimation = p.displayComponent.animation.walking;
-      if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.left2.state < 0) {
+      if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.right2.state < 0) {
         var vx = Carre.GameLogic.objectByFamily.player[0].vx;
         Carre.GameLogic.objectByFamily.player[0].vx = Math.max(vx, 5) ;
       }
