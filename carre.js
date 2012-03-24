@@ -35,7 +35,6 @@ var Carre = {
     var _this = this;
     this.startLoading();
 
-
     Util.require("lib/menu.js", function() {
       _this.getSettingsFromPage();
       _this.initCanvas();
@@ -50,9 +49,13 @@ var Carre = {
                 Util.require("lib/game_logic.js", function() {
                   Util.require("lib/knob.js/knob.js", function() {
                     Util.require("lib/sound.js", function() {
-                      Carre.Tile.load.bind(Carre.Tile)(Carre.settings.map, Carre.settings.collision);
+                      // initialize sound (preload assets and such).
                       Carre.Sound.init.bind(Carre.Sound)();
+                      // Initialize the game logic and stuff
                       Carre.GameLogic.init.bind(Carre.GameLogic)();
+                      // Load the first level
+                      _this.loadLevel();
+
                       var c = {
                         min: 0,
                         max: 2,
@@ -82,6 +85,51 @@ var Carre = {
         });
       });
     });
+  },
+  loadLevel : function() {
+    var level = Carre.settings.levels[this.currentLevel];
+    console.log("Loading level " + level.name);
+    // Load the tileset and the collision file for this level.
+    Carre.Tile.load.bind(Carre.Tile)(level.map, level.collision);
+    // Initialize the game logic
+    Carre.GameLogic.placeGameObjects.bind(Carre.GameLogic)();
+    Carre.Sound.trigger("level" + this.currentLevel);
+  },
+  levelWon : function() {
+    this.pauseGameLoop();
+    this.fadeToBlack();
+    this.Sound.fadeToSilence();
+    // Remove all things from the world (player, objects, etc.).
+    this.GameLogic.cleanWorld();
+    this.currentLevel++;
+    if (Carre.settings.levels[this.currentLevel] === undefined) {
+      this.gameWon();
+      return;
+    }
+    this.loadLevel();
+    var _this = this;
+    setTimeout(function() {
+      _this.unpauseGameLoop();
+      _this.fadeToTransparent();
+    }, 2000);
+  },
+  gameWon : function() {
+    console.log("the game has been won.");
+    var curtain = document.getElementById("curtain");
+    curtain.innerHTML = "You Won !";
+    Util.c(curtain, "add", "bigFatHotPink");
+  },
+  fadeToBlack : function() {
+    var curtain = document.getElementById("curtain");
+    curtain.style.width = Carre.settings.width + "px";
+    curtain.style.height = Carre.settings.height + "px";
+    var c = document.getElementsByTagName('canvas')[0];
+    curtain.style.top = c.offsetTop + "px";
+    curtain.style.left = c.offsetLeft + "px";
+    document.getElementById("curtain").className = "fadedToBlack";
+  },
+  fadeToTransparent : function() {
+    document.getElementById("curtain").className = "";
   },
   play : function() {
     document.querySelector("#menu").style.disabled = true;
@@ -191,12 +239,12 @@ var Carre = {
     })();
   },
   gameLoop : function() {
+    console.log("GAMELOOP");
     Carre.Menu.hide();
-    Carre.Sound.trigger("music");
     Carre.isPlaying = true;
 
     (function animloop(){
-      if (!Carre.stopped && !Carre.paused) {
+      if (!Carre.paused) {
         requestAnimFrame(animloop);
       } else {
         Carre.wasPaused = true;
@@ -212,11 +260,11 @@ var Carre = {
       Carre.Inputs.process.bind(Carre.Inputs)();
     })();
   },
-  stopGameLoop : function() {
-    Carre.stopped = true;
-  },
   pauseGameLoop : function() {
     Carre.paused = true;
+  },
+  unpauseGameLoop : function() {
+    Carre.paused = false;
   },
   notifyLoaded : function(module) {
     this.loadingState[module] = true;
@@ -231,10 +279,10 @@ var Carre = {
       Carre.play();
     }
   },
+  currentLevel : 0,
   settings : {
     width : 400,
     height : 300,
-    map : "map.json",
     debug : true,
     x : 0,
     y : 0

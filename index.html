@@ -19,6 +19,35 @@
       z-index : 1;
       box-shadow: 4px 4px 4px gray;
     }
+    .bigFatHotPink {
+      color : #fe57a1;
+      font-style: bold;
+      font-size : 4em;
+      font-family: sans-serif;
+      text-shadow: 4px 4px 4px #f2ff00;
+      text-align: center;
+    }
+    #curtain {
+      position: absolute;
+      margin: 0 auto;
+      z-index : 6;
+      background: black;
+      display: block;
+      opacity: 0;
+      transition         : opacity 1s;
+      -moz-transition    : opacity 1s;
+      -webkit-transition : opacity 1s;
+      -o-transition      : opacity 1s;
+      -ms-transition     : opacity 1s;
+    }
+    #curtain.fadedToBlack {
+      opacity : 1;
+      transition         : opacity 1s;
+      -moz-transition    : opacity 1s;
+      -webkit-transition : opacity 1s;
+      -o-transition      : opacity 1s;
+      -ms-transition     : opacity 1s;
+    }
     #menu {
       position: absolute;
       margin: 0 auto;
@@ -79,16 +108,23 @@
     float:right;
   }
 
+  .ontop {
+    z-index : 10;
+  }
+
   </style>
 </head>
 <body>
 <div class=knobgroup>
   <div class="slider" id=gravity> </div>
   <div class="slider" id=friction> </div>
+  <button onclick="Carre.levelWon()" class="ontop">Win !</button>
 </div>
 <canvas id=CarreCanvas>
   Canvas not supported.
 </canvas>
+<div id=curtain>
+</div>
 <div id=menu>
   <button id='play' disabled onclick='Carre.play.bind(Carre)()'>Play</button>
   <button onclick='Carre.Menu.showHideControls()'>Controls</button>
@@ -104,12 +140,25 @@
   var GameConfig = {
     width : 800,
     height : 600,
-    map : "assets/maps/level1.json",
-    collision : "assets/maps/level1_collisions.json",
+    levels : [
+      {   // Level 1
+          name : "initial level",
+          map : "assets/maps/level0.json",
+          collision : "assets/maps/level0_collisions.json",
+          soundtrack : "level0"
+      },
+      {   // Level 2
+          name : "second level",
+          map : "assets/maps/level1.json",
+          collision : "assets/maps/level1_collisions.json",
+          soundtrack : "level0"
+      }
+    ],
     layoutDebug : false,
     collisionDebug :false,
     sounds : [
-      "music",
+      "level0",
+      "level1",
       "playerhit",
       "pickup",
       "death",
