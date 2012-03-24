@@ -165,47 +165,6 @@ var Carre = {
       _this.Inputs.dispatch(e.keyCode, "up");
     };
 
-    // Pause on p
-    this.Inputs.register.bind(this.Inputs)(80, "down", "async", function pause() {
-      console.log("pressed");
-      Carre.paused = !Carre.paused;
-      Carre.Menu.showHidePauseLabel();
-    });
-
-    this.Inputs.register.bind(this.Inputs)(37, "pressed", "sync", function left() {
-      var p = Carre.GameLogic.objectByFamily.player[0];
-      p.look = "left";
-      p.displayComponent.animation.currentAnimation = p.displayComponent.animation.walking;
-      if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.left2.state < 0) {
-        var vx = Carre.GameLogic.objectByFamily.player[0].vx;
-        vx = Math.max(vx - 0.08 * Carre.GameLogic.elapsedTime, -6);
-        Carre.GameLogic.objectByFamily.player[0].vx = vx ;
-      }
-    });
-    this.Inputs.register.bind(this.Inputs)(39, "pressed", "sync", function right() {
-      var p = Carre.GameLogic.objectByFamily.player[0];
-      p.look = "right";
-      p.displayComponent.animation.currentAnimation = p.displayComponent.animation.walking;
-      if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.right2.state < 0) {
-        var vx = Carre.GameLogic.objectByFamily.player[0].vx;
-        vx = Math.min(vx + 0.08 * Carre.GameLogic.elapsedTime, 6);
-        Carre.GameLogic.objectByFamily.player[0].vx = vx ;
-      }
-    });
-    this.Inputs.register.bind(this.Inputs)(38, "pressed", "sync", function up() {
-    });
-    this.Inputs.register.bind(this.Inputs)(40, "pressed", "sync", function down() {
-    });
-    this.Inputs.register.bind(this.Inputs)(32, "down", "sync", function jump() {
-      if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.feet2.state >= 0) {
-        Carre.GameLogic.objectByFamily.player[0].vy -= 15;
-        Carre.Sound.trigger("jump");
-      }
-    });
-    this.Inputs.register.bind(this.Inputs)(68, "down", "sync", function suicide() {
-      Carre.GameLogic.objectByFamily.player[0].destroy();
-      Carre.GameLogic.get("player");
-    });
     //this.Inputs.register.bind(this.Inputs)(82, "down", function startRecord() {
       //Carre.Inputs.startRecord.bind(Carre.Inputs)();
     //});
