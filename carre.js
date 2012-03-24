@@ -94,8 +94,10 @@ var Carre = {
     // Initialize the game logic
     Carre.GameLogic.placeGameObjects.bind(Carre.GameLogic)();
     Carre.Sound.trigger("level" + this.currentLevel);
+    Carre.Sound.trigger("start");
   },
   levelWon : function() {
+    Carre.Sound.trigger("win");
     this.pauseGameLoop();
     this.fadeToBlack();
     this.Sound.fadeToSilence();
