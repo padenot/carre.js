@@ -292,6 +292,7 @@ var Carre = {
     player : false,
     collision : false,
     sounds : false,
-    backdrop : false
+    backdrop : false,
+    particle : false
   }
 };
