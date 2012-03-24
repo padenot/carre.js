@@ -178,7 +178,8 @@ var Carre = {
       p.displayComponent.animation.currentAnimation = p.displayComponent.animation.walking;
       if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.left2.state < 0) {
         var vx = Carre.GameLogic.objectByFamily.player[0].vx;
-        Carre.GameLogic.objectByFamily.player[0].vx = Math.min(vx, -5) ;
+        vx = Math.max(vx - 0.08 * Carre.GameLogic.elapsedTime, -6);
+        Carre.GameLogic.objectByFamily.player[0].vx = vx ;
       }
     });
     this.Inputs.register.bind(this.Inputs)(39, "pressed", "sync", function right() {
@@ -187,7 +188,8 @@ var Carre = {
       p.displayComponent.animation.currentAnimation = p.displayComponent.animation.walking;
       if (Carre.GameLogic.objectByFamily.player[0].collisionPoints.right2.state < 0) {
         var vx = Carre.GameLogic.objectByFamily.player[0].vx;
-        Carre.GameLogic.objectByFamily.player[0].vx = Math.max(vx, 5) ;
+        vx = Math.min(vx + 0.08 * Carre.GameLogic.elapsedTime, 6);
+        Carre.GameLogic.objectByFamily.player[0].vx = vx ;
       }
     });
     this.Inputs.register.bind(this.Inputs)(38, "pressed", "sync", function up() {
