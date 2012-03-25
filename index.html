@@ -199,7 +199,7 @@
 <div id=curtain>
 </div>
 <div id=menu>
-  <button id='play' disabled onclick='Carre.play.bind(Carre)()'></button>
+  <button tabindex=0 id='play' disabled onclick='Carre.play.bind(Carre)()'></button>
   <button id='creditsbutton' onclick='Carre.Menu.showHideCredits()'></button>
   <button id='mutesound' onclick='Carre.Sound.muteUnmute()'></button>
   <button id='quality' onclick='Carre.Menu.toggleQuality()'>HQ</button>
@@ -259,7 +259,6 @@
 <script type="text/javascript">
 (function(d, w) {
   Carre.init();
-
 // FPS counter.
 //(function(){var script=document.createElement('script');script.type='text/javascript';script.src='http://github.com/mrdoob/stats.js/raw/master/build/Stats.js';document.body.appendChild(script);script=document.createElement('script');script.innerHTML='var interval=setInterval(function(){if(typeof Stats==\'function\'){clearInterval(interval);var stats=new Stats();stats.getDomElement().style.position=\'fixed\';stats.getDomElement().style.left=\'0px\';stats.getDomElement().style.top=\'0px\';document.body.appendChild(stats.getDomElement());setInterval(function(){stats.update();},1000/60);}},100);';document.body.appendChild(script);})();
  })(document, window);
