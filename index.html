@@ -10,13 +10,13 @@
     body {
       height: 100%;
       width: 100%;
-      background: url(assets/bg.png);
+      background: url(assets/ui/walpaper.jpg);
     }
     canvas {
       margin: 0 auto;
       display: block;
       z-index : 1;
-      box-shadow: 4px 4px 4px gray;
+      box-shadow: 0px 0px 10px black;
     }
     .bigFatHotPink {
       color : #fe57a1;
@@ -78,7 +78,11 @@
       color: black;
       z-index: 3;
     }
+    button::-moz-focus-inner {
+      border: 0;
+    }
     button {
+      outline: none;
       border: none;
       display: block;
       margin-bottom: 1em;
@@ -112,7 +116,7 @@
       left: 90%;
       height: 27px;
       width: 28px;
-      background: url(assets/ui/son.png);
+      background: url(assets/ui/son.png) no-repeat;
     }
     #quality {
       color: #aaa;
