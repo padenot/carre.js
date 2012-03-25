@@ -20,4 +20,7 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="end" width="50" height="30">
+  <object x="1498" y="387" width="86" height="121"/>
+ </objectgroup>
 </map>
