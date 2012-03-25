@@ -3,6 +3,7 @@
  <properties>
   <property name="backdrop" value="assets/backdrops/backdrop.jpg"/>
   <property name="colorNumber" value="2"/>
+  <property name="tilesetsColorNumber" value="3"/>
  </properties>
  <tileset firstgid="1" name="texture32" tilewidth="32" tileheight="32">
   <image source="../tilesets/texture32.png" width="576" height="192"/>
