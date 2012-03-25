@@ -38,14 +38,15 @@
  "properties":
     {
      "backdrop":"assets\/backdrops\/backdrop.jpg",
-     "colorNumber":"2"
+     "colorNumber":"2",
+     "tilesetsColorNumber":"3"
     },
  "tileheight":32,
  "tilesets":[
         {
          "firstgid":1,
-         "image":"assets\/tilesets\/tilemap2colors.png",
-         "imageheight":128,
+         "image":"assets\/tilesets\/texture32.png",
+         "imageheight":192,
          "imagewidth":576,
          "margin":0,
          "name":"texture32",
