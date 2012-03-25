@@ -7,10 +7,16 @@
   </title>
   <link rel="stylesheet" href="lib/knob.js/knob.css" type="text/css" />
   <style>
+    @font-face{
+      font-family: "Dusty";
+      src: url("assets/ui/Dusty.ttf") format('woff');
+    }
+
     body {
       height: 100%;
       width: 100%;
       background: url(assets/ui/walpaper.jpg);
+      font-family: "Dusty";
     }
     canvas {
       margin: 0 auto;
@@ -33,14 +39,7 @@
       background: black;
       display: block;
       opacity: 0;
-      transition         : opacity 1s;
-      -moz-transition    : opacity 1s;
-      -webkit-transition : opacity 1s;
-      -o-transition      : opacity 1s;
-      -ms-transition     : opacity 1s;
-    }
-    #curtain.fadedToBlack {
-      opacity : 1;
+      pointer-events: none;
       transition         : opacity 1s;
       -moz-transition    : opacity 1s;
       -webkit-transition : opacity 1s;
@@ -56,6 +55,7 @@
       background: url(assets/ui/title.jpg);
     }
     #timer {
+      font-family: "Dusty";
       position: absolute;
       color: #f1f1f1;
       text-shadow: 0 3px 0 #666;
@@ -72,6 +72,27 @@
       text-align: left;
       font-size: 15px;
       width: 30px;
+    }
+    .modal {
+      width: 500px;
+      height: 300px;
+      position: absolute;
+      opacity: 0;
+      background: #fff;
+      color: #393939;
+      border-bottom: 10px solid #bebebe;
+      z-index: 10;
+      -moz-transition: opacity .5s ease;
+      -webkit-transition: opacity .5s ease;
+    }
+    .transparent {
+      opacity: 0;
+    }
+    .modal h2 {
+      font-size: 40px;
+      text-shadow: 0 3px 0 #bebebe;
+      margin-left: 20px;
+      margin-top: 20px;
     }
     .controls {
       visibility: hidden;
@@ -116,7 +137,7 @@
       left: 90%;
       height: 27px;
       width: 28px;
-      background: url(assets/ui/son.png) no-repeat;
+      background: url(assets/ui/son_on.png) no-repeat;
     }
     #quality {
       color: #aaa;
@@ -146,9 +167,9 @@
       font-family: sans-serif;
       font-size: 6em;
       color: red;
-      position: absolute;
-      top: 50%;
-      left: 50%;
+      position: relative;
+      top: 33%;
+      left: 33%;
       z-index: 4;
       -moz-animation-duration: 1s;
       -moz-animation-name: glow;
@@ -179,13 +200,14 @@
     z-index : 10;
   }
 
-  @font-face{
-    font-family: "Dusty";
-    src: url("assets/ui/Dusty.ttf") format('woff');
-  }
-
-  #timer {
-    font-family: "Dusty";
+  .close {
+    position: absolute;
+    top: -11px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 0 3px 0 #BEBEBE;
+    cursor: pointer;
   }
 
   </style>
@@ -203,12 +225,25 @@
 <div id=curtain>
 </div>
 <div id=menu>
-  <button id='play' disabled onclick='Carre.play.bind(Carre)()'></button>
+  <button tabindex=0 id='play' disabled onclick='Carre.play.bind(Carre)()'></button>
   <button id='creditsbutton' onclick='Carre.Menu.showHideCredits()'></button>
-  <button id='mutesound' onclick='Carre.Sound.muteUnmute()'></button>
+  <button id='mutesound' onclick='Carre.Menu.toggleSound();Carre.Sound.muteUnmute()'></button>
   <button id='quality' onclick='Carre.Menu.toggleQuality()'>HQ</button>
-  <div class=credits>
-  </div>
+</div>
+<div id="credits" class="modal"><div style="width: 100%; height: 100%; position: relative;">
+  <h2>Credits</h2>
+  <table style="margin: 30px auto;" border=0>
+    <tr><td width=170>Paul</td><td style="color: #bebebe;">code &amp; sound</td></tr>
+    <tr><td>Adrian</td><td style="color: #bebebe;">code &amp; levels</td></tr>
+    <tr><td>Nical</td><td style="color: #bebebe;">code</td></tr>
+    <tr><td>Louis-Remi</td><td style="color: #bebebe;">particles</td></tr>
+    <tr><td>Michael</td><td style="color: #bebebe;">graphics &amp; levels</td></tr>
+  </table>
+  <p style="color: #bebebe; margin-top: 70px;">Made at <span style="color: black;">GameDevParty</span> 2012</p>
+  <div class="close" onclick='Carre.Menu.hideCredits();return false;'>⤫</div>
+</div></div>
+<div id="score" class="modal">
+  <h2>Level Cleared</h2>
 </div>
 <script type="text/javascript">
 </script>
@@ -220,17 +255,22 @@
       {   // Level 1
           name : "initial level",
           map : "assets/maps/level0.json",
-          soundtrack : "level0"
+          soundtrack : "leve0"
+      },
+      {   // nical 1
+          name : "nical test 1",
+          map : "assets/maps/nical1.json",
+          soundtrack: "level1"
       },
       {   // Level 2
           name : "second level",
           map : "assets/maps/level1.json",
-          soundtrack : "level1"
+          soundtrack : "leve0"
       },
       {   // Level 3
           name : "third level",
           map : "assets/maps/level2.json",
-          soundtrack : "level2"
+          soundtrack : "level"
       }
     ],
     layoutDebug : false,
@@ -264,7 +304,6 @@
 <script type="text/javascript">
 (function(d, w) {
   Carre.init();
-
 // FPS counter.
 //(function(){var script=document.createElement('script');script.type='text/javascript';script.src='http://github.com/mrdoob/stats.js/raw/master/build/Stats.js';document.body.appendChild(script);script=document.createElement('script');script.innerHTML='var interval=setInterval(function(){if(typeof Stats==\'function\'){clearInterval(interval);var stats=new Stats();stats.getDomElement().style.position=\'fixed\';stats.getDomElement().style.left=\'0px\';stats.getDomElement().style.top=\'0px\';document.body.appendChild(stats.getDomElement());setInterval(function(){stats.update();},1000/60);}},100);';document.body.appendChild(script);})();
  })(document, window);

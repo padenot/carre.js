@@ -53,9 +53,25 @@ var Carre = {
                       // Initialize the game logic and stuff
                       Carre.GameLogic.init.bind(Carre.GameLogic)();
                       // Load the first level
+
                       _this.loadLevel(true);
-                      Carre.Sound.trigger("start");
                       Carre.Sound.trigger("title");
+
+                      // set modal position
+                      var canvas = document.getElementById("CarreCanvas"),
+                        canvasTop = canvas.offsetTop,
+                        canvasLeft = canvas.offsetLeft,
+                        canvasWidth = canvas.width,
+                        canvasHeight = canvas.height;
+                      var modalStyle = document.getElementById("credits").style,
+                        curtainStyle = document.getElementById("curtain").style;
+
+                      modalStyle.top = canvasTop + 150 + "px";
+                      modalStyle.left = canvasLeft + 150 + "px";
+                      curtainStyle.top = canvasTop + "px";
+                      curtainStyle.left = canvasLeft + "px";
+                      curtainStyle.width = canvasWidth + "px";
+                      curtainStyle.height = canvasHeight + "px";
                     });
                   });
                 });
@@ -85,7 +101,10 @@ var Carre = {
     Carre.Sound.trigger("win");
     this.pauseGameLoop();
     this.Sound.fadeToSilence();
-    this.fadeToBlack();
+    Util.fade( "curtain", .5 );
+
+    //Util.fade( "score", 1 );
+
     // Remove all things from the world (player, objects, etc.).
     this.GameLogic.cleanWorld();
     this.currentLevel++;
@@ -98,7 +117,7 @@ var Carre = {
       _this.loadLevel();
       _this.startLevel();
       _this.unpauseGameLoop();
-      _this.fadeToTransparent();
+      Util.fade( "curtain", 0 );
     }, 2000);
   },
   gameWon : function() {
@@ -106,19 +125,13 @@ var Carre = {
     var curtain = document.getElementById("curtain");
     curtain.innerHTML = "You Won !";
     Util.c(curtain, "add", "bigFatHotPink");
-  },
+  },/*
   fadeToBlack : function() {
-    var curtain = document.getElementById("curtain");
-    curtain.style.width = Carre.settings.width + "px";
-    curtain.style.height = Carre.settings.height + "px";
-    var c = document.getElementsByTagName('canvas')[0];
-    curtain.style.top = c.offsetTop + "px";
-    curtain.style.left = c.offsetLeft + "px";
     document.getElementById("curtain").className = "fadedToBlack";
   },
   fadeToTransparent : function() {
     document.getElementById("curtain").className = "";
-  },
+  },*/
   play : function() {
     document.querySelector("#menu").style.disabled = true;
     if (Carre.isPlaying) {
@@ -127,6 +140,7 @@ var Carre = {
     }
 
     if (this.currentLevel === 0) {
+      Carre.Sound.fadeToSilence();
       this.startLevel();
     }
     this.gameLoop();
