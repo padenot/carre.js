@@ -55,6 +55,23 @@
       font-family: sans-serif;
       background: url(assets/ui/title.jpg);
     }
+    #timer {
+      font-family: monospace;
+      position: absolute;
+      color: #f1f1f1;
+    }
+    #timer b {
+      display: inline-block;
+      width: 50px;
+    }
+    #ts {
+      text-align: right;
+      font-size: 30px;
+    }
+    #tms {
+      text-align: left;
+      font-size: 12px;
+    }
     .controls {
       visibility: hidden;
       color: black;
@@ -155,11 +172,12 @@
 <div class=knobgroup>
   <div class="slider" id=gravity> </div>
   <div class="slider" id=friction> </div>
-  <button onclick="Carre.levelWon()" class="ontop">Win !</button>
+  <button onclick="Carre.levelWon()" class="ontop">Win!</button>
 </div>
 <canvas id=CarreCanvas>
   Canvas not supported.
 </canvas>
+<span id="timer"><b id="ts"></b>.<b id="tms"></b></span>
 <div id=curtain>
 </div>
 <div id=menu>
