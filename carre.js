@@ -56,6 +56,8 @@ var Carre = {
                       // Load the first level
                       _this.loadLevel();
 
+                      Carre.Sound.muteUnmute();
+
                       var c = {
                         min: 0,
                         max: 2,
