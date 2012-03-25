@@ -97,6 +97,7 @@ var Carre = {
     Carre.GameLogic.placeGameObjects.bind(Carre.GameLogic)();
     Carre.Sound.trigger("level" + this.currentLevel);
     Carre.Sound.trigger("start");
+    Carre.GameLogic.objectByFamily.timer[0].loadLevelTime = Date.now();
   },
   levelWon : function() {
     Carre.Sound.trigger("win");
