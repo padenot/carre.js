@@ -33,6 +33,29 @@
          "width":50,
          "x":0,
          "y":0
+        },
+        {
+         "height":30,
+         "name":"end",
+         "objects":[
+                {
+                 "height":121,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"",
+                 "width":86,
+                 "x":1498,
+                 "y":387
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":50,
+         "x":0,
+         "y":0
         }],
  "orientation":"orthogonal",
  "properties":
