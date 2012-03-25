@@ -64,10 +64,13 @@ var Carre = {
                         canvasWidth = canvas.width,
                         canvasHeight = canvas.height;
                       var modalStyle = document.getElementById("credits").style,
-                        curtainStyle = document.getElementById("curtain").style;
+                        curtainStyle = document.getElementById("curtain").style,
+                        scoreStyle = document.getElementById("score").style;
 
                       modalStyle.top = canvasTop + 150 + "px";
                       modalStyle.left = canvasLeft + 150 + "px";
+                      scoreStyle.top = canvasTop + 150 + "px";
+                      scoreStyle.left = canvasLeft + 150 + "px";
                       curtainStyle.top = canvasTop + "px";
                       curtainStyle.left = canvasLeft + "px";
                       curtainStyle.width = canvasWidth + "px";
@@ -103,7 +106,7 @@ var Carre = {
     this.Sound.fadeToSilence();
     Util.fade( "curtain", .5 );
 
-    //Util.fade( "score", 1 );
+    Util.toggleFade( "score", 1 );
 
     // Remove all things from the world (player, objects, etc.).
     this.GameLogic.cleanWorld();
@@ -113,12 +116,14 @@ var Carre = {
       return;
     }
     var _this = this;
-    setTimeout(function() {
+
+    document.getElementById("clooooose").onclick = function() {
       _this.loadLevel();
       _this.startLevel();
       _this.unpauseGameLoop();
       Util.fade( "curtain", 0 );
-    }, 2000);
+      Util.toggleFade( "score" );
+    }
   },
   gameWon : function() {
     console.log("the game has been won.");
