@@ -47,37 +47,14 @@ var Carre = {
             Util.require("lib/game_object.js", function() {
               Util.require("lib/display_components.js", function() {
                 Util.require("lib/game_logic.js", function() {
-                  Util.require("lib/knob.js/knob.js", function() {
                     Util.require("lib/sound.js", function() {
                       // initialize sound (preload assets and such).
                       Carre.Sound.init.bind(Carre.Sound)();
                       // Initialize the game logic and stuff
                       Carre.GameLogic.init.bind(Carre.GameLogic)();
                       // Load the first level
-                      _this.loadLevel();
-
-                      Carre.Sound.muteUnmute();
-
-                      var c = {
-                        min: 0,
-                        max: 2,
-                        increment: 0.05,
-                        width: 50,
-                        height: 50,
-                        progression: "linear",
-                        type: "circular"
-                      };
-                      var k = new Knob(document.getElementById('gravity'), c);
-                      k.onValueChange(function(v) {
-                        console.log(v);
-                        Carre.GameLogic.world.gravity = v;
-                      });
-
-                      var j = new Knob(document.getElementById('friction'), c);
-                      j.onValueChange(function(v) {
-                        console.log(v);
-                        Carre.GameLogic.world.friction = v;
-                      });
+                      _this.loadLevel(true);
+                      Carre.Sound.trigger("start");
                     });
                   });
                 });
@@ -86,15 +63,19 @@ var Carre = {
           });
         });
       });
-    });
   },
-  loadLevel : function() {
+  loadLevel : function(preload) {
     var level = Carre.settings.levels[this.currentLevel];
     console.log("Loading level " + level.name);
     // Load the tileset and the collision file for this level.
     Carre.Tile.load.bind(Carre.Tile)(level.map);
     // Initialize the game logic
     Carre.GameLogic.placeGameObjects.bind(Carre.GameLogic)();
+    if (!preload) {
+      this.startLevel();
+    }
+  },
+  startLevel : function() {
     Carre.Sound.trigger("level" + this.currentLevel);
     Carre.Sound.trigger("start");
     Carre.GameLogic.objectByFamily.timer[0].loadLevelTime = Date.now();
@@ -114,6 +95,7 @@ var Carre = {
     var _this = this;
     setTimeout(function() {
       _this.loadLevel();
+      _this.startLevel();
       _this.unpauseGameLoop();
       _this.fadeToTransparent();
     }, 2000);
@@ -141,6 +123,10 @@ var Carre = {
     if (Carre.isPlaying) {
       // Wtf ?
       return;
+    }
+
+    if (this.currentLevel === 0) {
+      this.startLevel();
     }
     this.gameLoop();
   },
