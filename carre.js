@@ -256,6 +256,7 @@ var Carre = {
     collision : false,
     sounds : false,
     backdrop : false,
-    particle : false
+    particle : false,
+    bumper_up : false
   }
 };
