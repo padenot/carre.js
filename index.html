@@ -80,11 +80,10 @@
     }
     button {
       border: none;
-      background: cyan;
-      border-radius: 8px;
       display: block;
       margin-bottom: 1em;
       z-index: 12;
+      background: none;
     }
     #buttongroup {
       position: relative;
@@ -114,6 +113,15 @@
       height: 27px;
       width: 28px;
       background: url(assets/ui/son.png);
+    }
+    #quality {
+      color: #aaa;
+      position: relative;
+      top : -30%;
+      left: 85%;
+      height: 27px;
+      width: 28px;
+      font-family: "Dusty"
     }
     .key {
       border: 1px solid black;
@@ -194,6 +202,7 @@
   <button id='play' disabled onclick='Carre.play.bind(Carre)()'></button>
   <button id='creditsbutton' onclick='Carre.Menu.showHideCredits()'></button>
   <button id='mutesound' onclick='Carre.Sound.muteUnmute()'></button>
+  <button id='quality' onclick='Carre.Menu.toggleQuality()'>HQ</button>
   <div class=credits>
   </div>
 </div>
@@ -235,8 +244,10 @@
       "assets/backdrops/layer01.png",
       "assets/backdrops/layer02.png"
     ],
+    backdroplq : "assets/backdrops/backdrop.jpg",
     vignette : "assets/backdrops/vignette.png",
-    backdrop_logo : "assets/backdrops/cpu.png"
+    backdrop_logo : "assets/backdrops/cpu.png",
+    quality : "lq"
   };
 </script>
 <script type="text/javascript" src="carre.js"> </script>
