@@ -10,7 +10,7 @@
  </tileset>
  <layer name="solid" width="50" height="30">
   <data encoding="base64" compression="zlib">
-   eJztmFcKwzAQRJ3ej5Fq/6f35P5XyhhsIoS0LruyUzTwwCSxViNW0pAg8HKtBmgmtGqeC0c95blf2yz4+gQfaU9w+sGVjymYF5wDp74rHyGIkuesPWjyEa/DTINalyp8ZNUw+QgNv4sMn+lj2GqUlffxfl/XN/pYgKXGiqj3qT6KyvugVbWPNugkdBnj6JL2od5BNlzkQ2kfPeI7amyupH2ofWPD1k+cTF/1/qDEOQOK+EjXWnJ/quL4iO+x9N7KM44pF0owZ/pQledMNOUQCUU560vJlEMkoLLMP8hVn1P970Jxn+/AHhzAEZzAGVzAFdzAHTzAE6zBBmxLvEtleZts2UC9W1z1uWT/x+fXAAzBCIzBJPi+/4ts2cD1Web123oBpkkizA==
+   eJztmOduwzAMhNm9955Bf7TpQvfe8/1fqUfIBgTasqFSjIM2B3xAgCSSzuJJTIh6slYf6M8YaHgtGo2ANbAORhtei0bsYxu0qDkfeU1o6oF9jIMJSutjF7Qj1jClnJ/HmAGzynGkjsBx9roug7yGeTE/P4c9QdVz4TEWwRLZ+eA5xsjte9kc/P6KeI+/fwJOwRk498Yrk1XOpY9pcvse8rFJRR+X4Apcgxuq92GRc+ljgdy+h3zsUNHHHbgHD+CR6n1Y5Fz6WCW37yEfMuf74EBwWDFfJ3LOc2yR2/eQD5nzWHVrzmPVrTmP1SAYyhhWjCOlzbmUfweFsOgPtTkv+wzX/jK5GszH4zraIP1+hpQ6537dhAjVk6an73TOq8Tj83k894s5YnKeP+uU+fTl12SsD77H8nurLuessr4wBe1s/jxH1mci7x/3ghdU7KtuqdijPIFn8AJewRt4Bx/gE3yBb3I1YXUml6msD0lBVS/zH2RV51X1byGu89ga1tZ/rEK9gX+3WNV5yvr37zP+vTJJ+v8HmlCoN7A+y3r62/oBKswwJA==
   </data>
  </layer>
  <objectgroup name="player" width="50" height="30">
@@ -19,5 +19,8 @@
     <property name="color" value="0"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="end" width="50" height="30">
+  <object x="1498" y="387" width="86" height="121"/>
  </objectgroup>
 </map>
