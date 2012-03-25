@@ -56,6 +56,8 @@ var Carre = {
                       // Load the first level
                       _this.loadLevel();
 
+                      Carre.Sound.muteUnmute();
+
                       var c = {
                         min: 0,
                         max: 2,
@@ -197,7 +199,7 @@ var Carre = {
       }
       Carre.c.clearRect(0, 0, Carre.settings.width, Carre.settings.height);
       var camera = Carre.GameLogic.objectByFamily.camera[0];
-      Carre.Tile.renderMap(camera.x, camera.y);
+      Carre.Tile.renderMap.bind(Carre.Tile)(camera.x, camera.y);
       Carre.GameLogic.render.bind(Carre.GameLogic)(Carre.c);
     })();
   },
@@ -256,7 +258,8 @@ var Carre = {
     collision : false,
     sounds : false,
     backdrop : false,
+    vignette : false,
     particle : false,
-    bumper_up : false
+    cpu : false
   }
 };
