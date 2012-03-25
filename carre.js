@@ -92,7 +92,7 @@ var Carre = {
     var level = Carre.settings.levels[this.currentLevel];
     console.log("Loading level " + level.name);
     // Load the tileset and the collision file for this level.
-    Carre.Tile.load.bind(Carre.Tile)(level.map, level.collision);
+    Carre.Tile.load.bind(Carre.Tile)(level.map);
     // Initialize the game logic
     Carre.GameLogic.placeGameObjects.bind(Carre.GameLogic)();
     Carre.Sound.trigger("level" + this.currentLevel);
@@ -256,7 +256,6 @@ var Carre = {
   loadingState : {
     tileset : false,
     player : false,
-    collision : false,
     sounds : false,
     backdrop : false,
     vignette : false,

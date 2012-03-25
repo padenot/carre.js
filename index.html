@@ -13,7 +13,6 @@
       background: url(assets/bg.png);
     }
     canvas {
-      border: 1px solid black;
       margin: 0 auto;
       display: block;
       z-index : 1;
@@ -50,10 +49,11 @@
     }
     #menu {
       position: absolute;
-      margin: 0 auto;
+      margin: 0 0;
       z-index : 2;
       display: block;
       font-family: sans-serif;
+      background: url(assets/ui/title.jpg);
     }
     #timer {
       font-family: monospace;
@@ -77,22 +77,57 @@
       color: black;
       z-index: 3;
     }
+    button {
+      border: none;
+      background: cyan;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 1em;
+      z-index: 12;
+    }
+    #buttongroup {
+      position: relative;
+      top : 66%;
+      left: 66%;
+    }
+    #play {
+      position: relative;
+      top : 74.5%;
+      left: 60%;
+      width: 227px;
+      height: 92px;
+      background: url(assets/ui/play.png);
+    }
+    #creditsbutton {
+      position: relative;
+      top : -16%;
+      left: 95%;
+      height: 27px;
+      width: 28px;
+      background: url(assets/ui/credits.png);
+    }
+    #mutesound {
+      position: relative;
+      top : -23%;
+      left: 90%;
+      height: 27px;
+      width: 28px;
+      background: url(assets/ui/son.png);
+    }
     .key {
       border: 1px solid black;
       padding: 0px 4px;
       border-radius: 4px;
       box-shadow: 0px 2px 0px black;
     }
-    .controls {
-      border: 2px solid black;
-      background: rgba(128,128,128,0.5);
-      box-shadow: 4px 4px 2px black;
-      text-align:left;
-      line-height: 2em;
-      font-size: 3em;
-      margin: 4em;
-      border-radius: 1em;
-      list-style-type: none;
+    .credits {
+      z-index: 12;
+      background: black;
+      position: relative;
+      width: 800;
+      height: 600;
+      top: 0;
+      left: 0;
     }
     .pauseLabel {
       font-family: sans-serif;
@@ -122,11 +157,22 @@
   }
 
   .knobgroup {
-    float:right;
+    position: fixed;
+    top: 0;
+    right: 0;
   }
 
   .ontop {
     z-index : 10;
+  }
+
+  @font-face{
+    font-family: "Dusty";
+    src: url("assets/ui/Dusty.ttf") format('woff');
+  }
+
+  #timer {
+    font-family: "Dusty";
   }
 
   </style>
@@ -144,13 +190,11 @@
 <div id=curtain>
 </div>
 <div id=menu>
-  <button id='play' disabled onclick='Carre.play.bind(Carre)()'>Play</button>
-  <button onclick='Carre.Menu.showHideControls()'>Controls</button>
-  <ul class=controls>
-    <li>Left : <span class=key>←</span></li>
-    <li>Right : <span class=key>→</span></li>
-    <li>Jump : <span class=key>Space</span></li>
-  </ul>"
+  <button id='play' disabled onclick='Carre.play.bind(Carre)()'></button>
+  <button id='creditsbutton' onclick='Carre.Menu.showHideCredits()'></button>
+  <button id='mutesound' onclick='Carre.Sound.muteUnmute()'></button>
+  <div class=credits>
+  </div>
 </div>
 <script type="text/javascript">
 </script>
@@ -162,13 +206,11 @@
       {   // Level 1
           name : "initial level",
           map : "assets/maps/level0.json",
-          collision : "assets/maps/level0_collisions.json",
           soundtrack : "level0"
       },
       {   // Level 2
           name : "second level",
           map : "assets/maps/level1.json",
-          collision : "assets/maps/level1_collisions.json",
           soundtrack : "level1"
       }
     ],
@@ -187,7 +229,7 @@
       "step1",
       "walljump"
     ],
-    autoplay: true,
+    autoplay: false,
     backdrop : [
       "assets/backdrops/layer01.png",
       "assets/backdrops/layer02.png"
