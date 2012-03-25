@@ -55,9 +55,7 @@ var Carre = {
                       // Load the first level
 
                       _this.loadLevel(true);
-                      Carre.Sound.trigger("start");
-
-                      Carre.Sound.muteUnmute();
+                      Carre.Sound.trigger("title");
 
                       // set modal position
                       var canvas = document.getElementById("CarreCanvas"),
@@ -77,28 +75,6 @@ var Carre = {
                       curtainStyle.left = canvasLeft + "px";
                       curtainStyle.width = canvasWidth + "px";
                       curtainStyle.height = canvasHeight + "px";
-
-                      var c = {
-                        min: 0,
-                        max: 2,
-                        increment: 0.05,
-                        width: 50,
-                        height: 50,
-                        progression: "linear",
-                        type: "circular"
-                      };
-                      /*var k = new Knob(document.getElementById('gravity'), c);
-                      k.onValueChange(function(v) {
-                        console.log(v);
-                        Carre.GameLogic.world.gravity = v;
-                      });
-
-                      var j = new Knob(document.getElementById('friction'), c);
-                      j.onValueChange(function(v) {
-                        console.log(v);
-                        Carre.GameLogic.world.friction = v;
-                      });*/
-
                     });
                   });
                 });
@@ -169,6 +145,7 @@ var Carre = {
     }
 
     if (this.currentLevel === 0) {
+      Carre.Sound.fadeToSilence();
       this.startLevel();
     }
     this.gameLoop();
