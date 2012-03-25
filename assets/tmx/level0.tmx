@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="30" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="backdrop" value="assets/backdrops/backdrop.jpg"/>
+  <property name="colorNumber" value="2"/>
+  <property name="tilesetsColorNumber" value="3"/>
+ </properties>
+ <tileset firstgid="1" name="texture32" tilewidth="32" tileheight="32">
+  <image source="../tilesets/texture32.png" width="576" height="192"/>
+ </tileset>
+ <layer name="solid" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztmFcKwzAQRJ3ej5Fq/6f35P5XyhhsIoS0LruyUzTwwCSxViNW0pAg8HKtBmgmtGqeC0c95blf2yz4+gQfaU9w+sGVjymYF5wDp74rHyGIkuesPWjyEa/DTINalyp8ZNUw+QgNv4sMn+lj2GqUlffxfl/XN/pYgKXGiqj3qT6KyvugVbWPNugkdBnj6JL2od5BNlzkQ2kfPeI7amyupH2ofWPD1k+cTF/1/qDEOQOK+EjXWnJ/quL4iO+x9N7KM44pF0owZ/pQledMNOUQCUU560vJlEMkoLLMP8hVn1P970Jxn+/AHhzAEZzAGVzAFdzAHTzAE6zBBmxLvEtleZts2UC9W1z1uWT/x+fXAAzBCIzBJPi+/4ts2cD1Web123oBpkkizA==
+  </data>
+ </layer>
+ <objectgroup name="player" width="50" height="30">
+  <object x="12" y="677" width="77" height="78">
+   <properties>
+    <property name="color" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
