@@ -102,8 +102,8 @@ var Carre = {
   levelWon : function() {
     Carre.Sound.trigger("win");
     this.pauseGameLoop();
-    this.fadeToBlack();
     this.Sound.fadeToSilence();
+    this.fadeToBlack();
     // Remove all things from the world (player, objects, etc.).
     this.GameLogic.cleanWorld();
     this.currentLevel++;
@@ -111,9 +111,9 @@ var Carre = {
       this.gameWon();
       return;
     }
-    this.loadLevel();
     var _this = this;
     setTimeout(function() {
+      _this.loadLevel();
       _this.unpauseGameLoop();
       _this.fadeToTransparent();
     }, 2000);
