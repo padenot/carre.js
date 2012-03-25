@@ -55,6 +55,7 @@ var Carre = {
                       // Load the first level
                       _this.loadLevel(true);
                       Carre.Sound.trigger("start");
+                      Carre.Sound.trigger("title");
                     });
                   });
                 });
