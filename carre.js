@@ -124,7 +124,7 @@ var Carre = {
       _this.unpauseGameLoop();
       Util.fade( "curtain", 0 );
       Util.toggleFade( "score" );
-    }
+    };
   },
   gameWon : function() {
     console.log("the game has been won.");
@@ -246,11 +246,14 @@ var Carre = {
         return;
       }
     }
-    Carre.Menu.notifyLoadingFinished();
+    if (! this.loaded) {
+      Carre.Menu.notifyLoadingFinished();
 
-    if (Carre.settings.autoplay) {
-      Carre.play();
+      if (Carre.settings.autoplay) {
+        Carre.play();
+      }
     }
+    this.loaded = true;
   },
   currentLevel : 0,
   settings : {
@@ -268,5 +271,6 @@ var Carre = {
     vignette : false,
     particle : false,
     cpu : false
-  }
+  },
+  loaded : false
 };
