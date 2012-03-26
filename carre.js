@@ -96,7 +96,8 @@ var Carre = {
     }
   },
   startLevel : function() {
-    Carre.Sound.trigger("level" + this.currentLevel);
+    var toTrigger = this.currentLevel % 2;
+    Carre.Sound.trigger("level" + toTrigger);
     Carre.Sound.trigger("start");
     Carre.GameLogic.objectByFamily.timer[0].loadLevelTime = Date.now();
   },
