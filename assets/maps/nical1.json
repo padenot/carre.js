@@ -56,41 +56,6 @@
          "width":200,
          "x":0,
          "y":0
-        }, 
-        {
-         "height":30,
-         "name":"bumpers",
-         "objects":[
-                {
-                 "height":42,
-                 "name":"",
-                 "properties":
-                    {
-
-                    },
-                 "type":"",
-                 "width":24,
-                 "x":404,
-                 "y":728
-                }, 
-                {
-                 "height":64,
-                 "name":"",
-                 "properties":
-                    {
-                     "type":"left"
-                    },
-                 "type":"",
-                 "width":88,
-                 "x":2398,
-                 "y":58
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "width":200,
-         "x":0,
-         "y":0
         }],
  "orientation":"orthogonal",
  "properties":
