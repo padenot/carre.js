@@ -1,1 +1,390 @@
-My GitHub Page
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>
+    Super Bit Boy
+  </title>
+  <link rel="stylesheet" href="lib/knob.js/knob.css" type="text/css" />
+  <style>
+    @font-face{
+      font-family: "Dusty";
+      src: url("assets/ui/Dusty.ttf");
+    }
+
+    body {
+      height: 100%;
+      width: 100%;
+      background: url(assets/ui/walpaper.jpg);
+      font-family: "Dusty";
+    }
+    #loading {
+     font-family: "Dusty";
+     color: #aaa;
+     position: relative;
+      top : 43%;
+      left: 68%;
+      width: 200px;
+    }
+    #wrap {
+      position: relative;
+      margin-top: 1em;
+      margin-left: 1em;
+     width: 40px;
+     height: 40px;
+    -moz-animation-name:             rotate;
+    -moz-animation-duration:         1s;
+    -moz-animation-iteration-count:  infinite;
+    -moz-transition-timing-function: linear, linear;
+    }
+
+#top {
+ top: 0px;
+ left: 16px;
+}
+
+#bottom {
+ top: 24px;
+ left: 16px;
+}
+
+.throbber {
+ width: 8px;
+ height: 8px;  
+ background: rgb(100,100,120);
+ position: relative;
+ border-radius:4px;
+}
+
+@-moz-keyframes rotate {
+  from {
+    -moz-transform: rotate(0deg);
+    opacity: 0.3;
+  }
+  to {
+    -moz-transform: rotate(360deg);
+     opacity: 0.9;
+  }
+}
+    canvas {
+      margin: 0 auto;
+      display: block;
+      z-index : 1;
+      box-shadow: 0px 0px 10px black;
+    }
+    .bigFatHotPink {
+      color : #fe57a1;
+      font-style: bold;
+      font-size : 4em;
+      font-family: sans-serif;
+      text-shadow: 4px 4px 4px #f2ff00;
+      text-align: center;
+    }
+    #curtain {
+      position: absolute;
+      margin: 0 auto;
+      z-index : 6;
+      background: black;
+      display: block;
+      opacity: 0;
+      pointer-events: none;
+      transition         : opacity 1s;
+      -moz-transition    : opacity 1s;
+      -webkit-transition : opacity 1s;
+      -o-transition      : opacity 1s;
+      -ms-transition     : opacity 1s;
+    }
+    #menu {
+      position: absolute;
+      margin: 0 0;
+      z-index : 2;
+      display: block;
+      font-family: sans-serif;
+      background: url(assets/ui/title.jpg);
+    }
+    #timer {
+      font-family: "Dusty";
+      position: absolute;
+      color: #f1f1f1;
+      text-shadow: 0 3px 0 #666;
+    }
+    #timer b {
+      display: inline-block;
+    }
+    #ts {
+      text-align: right;
+      font-size: 30px;
+      width: 70px;
+    }
+    #tms {
+      text-align: left;
+      font-size: 15px;
+      width: 30px;
+    }
+    .modal {
+      width: 500px;
+      height: 300px;
+      position: absolute;
+      opacity: 0;
+      background: #fff;
+      color: #393939;
+      border-bottom: 10px solid #bebebe;
+      z-index: 10;
+      -moz-transition: opacity .5s ease;
+      -webkit-transition: opacity .5s ease;
+    }
+    .transparent {
+      opacity: 0;
+    }
+    .modal h2 {
+      font-size: 40px;
+      text-shadow: 0 3px 0 #bebebe;
+      margin-left: 20px;
+      margin-top: 20px;
+    }
+    .controls {
+      visibility: hidden;
+      color: black;
+      z-index: 3;
+    }
+    button::-moz-focus-inner {
+      border: 0;
+    }
+    button {
+      outline: none;
+      border: none;
+      display: block;
+      margin-bottom: 1em;
+      z-index: 12;
+      background: none;
+    }
+    #buttongroup {
+      position: relative;
+      top : 66%;
+      left: 66%;
+    }
+    #play {
+      position: relative;
+      top : 74.5%;
+      left: 60%;
+      width: 227px;
+      height: 92px;
+      background: url(assets/ui/play.png);
+      opacity: 0;
+      transition: opacity 1s;
+      -moz-transition: opacity 1s;
+      -webkit-transition: opacity 1s;
+      -o-transition: opacity 1s;
+      -ms-transition: opacity 1s;
+    }
+    #play.ok {
+      transition: opacity 1s;
+      -moz-transition: opacity 1s;
+      -webkit-transition: opacity 1s;
+      -o-transition: opacity 1s;
+      -ms-transition: opacity 1s;
+      opacity: 1;
+    }
+    #creditsbutton {
+      position: relative;
+      top : -16%;
+      left: 95%;
+      height: 27px;
+      width: 28px;
+      background: url(assets/ui/credits.png);
+    }
+    #mutesound {
+      position: relative;
+      top : -23%;
+      left: 90%;
+      height: 27px;
+      width: 28px;
+      background: url(assets/ui/son_on.png) no-repeat;
+    }
+    #quality {
+      color: #aaa;
+      position: relative;
+      top : -30%;
+      left: 85%;
+      height: 27px;
+      width: 28px;
+      font-family: "Dusty"
+    }
+    .key {
+      border: 1px solid black;
+      padding: 0px 4px;
+      border-radius: 4px;
+      box-shadow: 0px 2px 0px black;
+    }
+    .credits {
+      z-index: 12;
+      background: black;
+      position: relative;
+      width: 800;
+      height: 600;
+      top: 0;
+      left: 0;
+    }
+    .pauseLabel {
+      font-family: sans-serif;
+      font-size: 6em;
+      color: red;
+      position: relative;
+      top: 33%;
+      left: 33%;
+      z-index: 4;
+      -moz-animation-duration: 1s;
+      -moz-animation-name: glow;
+      -moz-animation-iteration-count: infinite;
+    }
+
+  @-moz-keyframes glow {
+    0% {
+      text-shadow: 0em 0em 0em red;
+    }
+
+    50% {
+      text-shadow: 0em 0em 0.5em red;
+    }
+
+    100% {
+      text-shadow: 0em 0em 0em red;
+    }
+  }
+
+  .knobgroup {
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
+
+  .ontop {
+    z-index : 10;
+  }
+
+  .close {
+    position: absolute;
+    top: -11px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 0 3px 0 #BEBEBE;
+    cursor: pointer;
+  }
+
+  </style>
+</head>
+<body>
+<div class=knobgroup>
+  <div class="slider" id=gravity> </div>
+  <div class="slider" id=friction> </div>
+  <button onclick="Carre.levelWon()" class="ontop">Win!</button>
+</div>
+<canvas id=CarreCanvas>
+  Canvas not supported.
+</canvas>
+<span id="timer"><b id="ts"></b>.<b id="tms"></b></span>
+<div id=curtain>
+</div>
+<div id=menu>
+  <button tabindex=0 id='play' onclick='Carre.play.bind(Carre)()'></button>
+  <button id='creditsbutton' onclick='Carre.Menu.showHideCredits()'></button>
+  <button id='mutesound' onclick='Carre.Menu.toggleSound();Carre.Sound.muteUnmute()'></button>
+  <button id='quality' onclick='Carre.Menu.toggleQuality()'>HQ</button>
+
+  <div id=loading>
+    Loading
+    <div id="wrap">
+      <div id="top" class="throbber"></div>
+      <div id="bottom" class="throbber"></div>
+    </div>
+  </div>
+
+</div>
+<div id="score" class="modal">
+  <h2>Level Cleared</h2>
+  <div id="clooooose" class="close" style="margin-top: 20px;" onclick='return false;'>⤫</div>
+</div>
+<div id="credits" class="modal"><div style="width: 100%; height: 100%; position: relative;">
+  <h2>Credits</h2>
+  <table style="margin: 30px auto;" border=0>
+    <tr><td width=170>Paul</td><td style="color: #bebebe;">code &amp; sound</td></tr>
+    <tr><td>Adrian</td><td style="color: #bebebe;">code &amp; levels</td></tr>
+    <tr><td>Nical</td><td style="color: #bebebe;">code</td></tr>
+    <tr><td>Louis-Remi</td><td style="color: #bebebe;">particles</td></tr>
+    <tr><td><a href="http://www.miclos.com/">Michael</a></td><td style="color: #bebebe;">graphics &amp; levels</td></tr>
+  </table>
+  <p style="color: #bebebe; margin-top: 70px;">Made at <a style="color:
+    black;" href="http://gamedevparty.fr">GameDevParty</a> 2012</p>
+  <div class="close" onclick='Carre.Menu.hideCredits();return false;'>⤫</div>
+</div></div>
+<script type="text/javascript">
+</script>
+<script id="config" type="text/javascript">
+  var GameConfig = {
+    width : 800,
+    height : 600,
+    levels : [
+      {   // Level 1
+          name : "initial level",
+          map : "assets/maps/level0.json",
+          soundtrack : "level1"
+      },
+      {   // nical 1
+          name : "nical test 1",
+          map : "assets/maps/nical1.json",
+          soundtrack: "level1"
+      },
+      {   // Level 2
+          name : "second level",
+          map : "assets/maps/level1.json",
+          soundtrack : "level1"
+      },
+      {   // Level 3
+          name : "third level",
+          map : "assets/maps/level2.json",
+          soundtrack : "level1"
+      }
+    ],
+    layoutDebug : false,
+    collisionDebug :false,
+    sounds : [
+      "level0",
+      "level1",
+      "playerhit",
+      "pickup",
+      "death",
+      "jump",
+      "start",
+      "win",
+      "step0",
+      "step1",
+      "walljump",
+      "title"
+    ],
+    loop : [
+      "level0",
+      "level1",
+      "title"
+    ],
+    autoplay: false,
+    backdrop : [
+      "assets/backdrops/layer01.png",
+      "assets/backdrops/layer02.png"
+    ],
+    backdroplq : "assets/backdrops/backdrop.jpg",
+    vignette : "assets/backdrops/vignette.png",
+    backdrop_logo : "assets/backdrops/cpu.png",
+    quality : "HQ"
+  };
+</script>
+<script type="text/javascript" src="carre.js"> </script>
+<script type="text/javascript">
+(function(d, w) {
+  Carre.init();
+// FPS counter.
+//(function(){var script=document.createElement('script');script.type='text/javascript';script.src='http://github.com/mrdoob/stats.js/raw/master/build/Stats.js';document.body.appendChild(script);script=document.createElement('script');script.innerHTML='var interval=setInterval(function(){if(typeof Stats==\'function\'){clearInterval(interval);var stats=new Stats();stats.getDomElement().style.position=\'fixed\';stats.getDomElement().style.left=\'0px\';stats.getDomElement().style.top=\'0px\';document.body.appendChild(stats.getDomElement());setInterval(function(){stats.update();},1000/60);}},100);';document.body.appendChild(script);})();
+ })(document, window);
+</script>
+</body>
+</html>

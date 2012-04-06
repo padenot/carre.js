@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="30" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="backdrop" value="assets/backdrops/backdrop.jpg"/>
+  <property name="colorNumber" value="2"/>
+  <property name="tilesetsColorNumber" value="3"/>
+ </properties>
+ <tileset firstgid="1" name="texture32" tilewidth="32" tileheight="32">
+  <image source="../tilesets/texture32.png" width="576" height="192"/>
+ </tileset>
+ <layer name="solid" width="50" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztmOduwzAMhNm9955Bf7TpQvfe8/1fqUfIBgTasqFSjIM2B3xAgCSSzuJJTIh6slYf6M8YaHgtGo2ANbAORhtei0bsYxu0qDkfeU1o6oF9jIMJSutjF7Qj1jClnJ/HmAGzynGkjsBx9roug7yGeTE/P4c9QdVz4TEWwRLZ+eA5xsjte9kc/P6KeI+/fwJOwRk498Yrk1XOpY9pcvse8rFJRR+X4Apcgxuq92GRc+ljgdy+h3zsUNHHHbgHD+CR6n1Y5Fz6WCW37yEfMuf74EBwWDFfJ3LOc2yR2/eQD5nzWHVrzmPVrTmP1SAYyhhWjCOlzbmUfweFsOgPtTkv+wzX/jK5GszH4zraIP1+hpQ6537dhAjVk6an73TOq8Tj83k894s5YnKeP+uU+fTl12SsD77H8nurLuessr4wBe1s/jxH1mci7x/3ghdU7KtuqdijPIFn8AJewRt4Bx/gE3yBb3I1YXUml6msD0lBVS/zH2RV51X1byGu89ga1tZ/rEK9gX+3WNV5yvr37zP+vTJJ+v8HmlCoN7A+y3r62/oBKswwJA==
+  </data>
+ </layer>
+ <objectgroup name="player" width="50" height="30">
+  <object x="12" y="677" width="77" height="78">
+   <properties>
+    <property name="color" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="end" width="50" height="30">
+  <object x="1498" y="387" width="86" height="121"/>
+ </objectgroup>
+</map>
