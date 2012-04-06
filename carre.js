@@ -96,8 +96,7 @@ var Carre = {
     }
   },
   startLevel : function() {
-    var toTrigger = this.currentLevel % 2;
-    Carre.Sound.trigger("level" + toTrigger);
+    Carre.Sound.trigger(Carre.settings.levels[this.currentLevel].soundtrack);
     Carre.Sound.trigger("start");
     Carre.GameLogic.objectByFamily.timer[0].loadLevelTime = Date.now();
   },
@@ -105,7 +104,7 @@ var Carre = {
     Carre.Sound.trigger("win");
     this.pauseGameLoop();
     this.Sound.fadeToSilence();
-    Util.fade( "curtain", .5 );
+    Util.fade( "curtain", 0.5 );
 
     Util.toggleFade( "score", 1 );
 
