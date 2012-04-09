@@ -115,28 +115,24 @@ var Carre = {
       this.gameWon();
       return;
     }
-    var _this = this;
-
-    document.getElementById("clooooose").onclick = function() {
+    var _this = this
+      , levelStart = function() {
       _this.loadLevel();
       _this.startLevel();
       _this.unpauseGameLoop();
       Util.fade( "curtain", 0 );
       Util.toggleFade( "score" );
     };
+
+    document.getElementById("clooooose").onclick = levelStart;
+    Carre.Inputs.registerUniqueOnKeyDown(levelStart);
   },
   gameWon : function() {
     console.log("the game has been won.");
     var curtain = document.getElementById("curtain");
     curtain.innerHTML = "You Won !";
     Util.c(curtain, "add", "bigFatHotPink");
-  },/*
-  fadeToBlack : function() {
-    document.getElementById("curtain").className = "fadedToBlack";
   },
-  fadeToTransparent : function() {
-    document.getElementById("curtain").className = "";
-  },*/
   play : function() {
     document.querySelector("#menu").style.disabled = true;
     if (Carre.isPlaying) {
@@ -175,16 +171,6 @@ var Carre = {
     document.onkeyup = function(e) {
       _this.Inputs.dispatch(e.keyCode, "up");
     };
-
-    //this.Inputs.register.bind(this.Inputs)(82, "down", function startRecord() {
-      //Carre.Inputs.startRecord.bind(Carre.Inputs)();
-    //});
-    //this.Inputs.register.bind(this.Inputs)(83, "down", function startRecord() {
-      //Carre.Inputs.stopRecord.bind(Carre.Inputs)();
-    //});
-    //this.Inputs.register.bind(this.Inputs)(80, "down", function replayLast() {
-      //Carre.Inputs.replayLast.bind(Carre.Inputs)();
-    //});
   },
   replayLoop : function(r) {
     Carre.Sound.trigger("music");
